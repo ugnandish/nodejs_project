@@ -45,4 +45,60 @@ Overview REST API Convention
     <th>HTTP Method</th>
     <th>Endpoints</th>
   </tr>
+  <tr>
+    <td>Get all contacts</td>
+    <td>GET</td>
+    <td>/api/contacts</td>
+  </tr>
+  <tr>
+    <td>Get contact</td>
+    <td>GET</td>
+    <td>/api/contacts/:id</td>
+  </tr>
+  <tr>
+    <td>Create contact</td>
+    <td>POST</td>
+    <td>/api/contacts</td>
+  </tr>
+  <tr>
+    <td>Update contact</td>
+    <td>PUT</td>
+    <td>/api/contacts/:id</td>
+  </tr>
+  <tr>
+    <td>Delete contact</td>
+    <td>DELETE</td>
+    <td>/api/contacts/:id</td>
+  </tr>
 </table>
+
+<h3>Install Nodejs</h3>
+<h3>Install Visual Studio</h3>
+
+<h3>Open Terminal</h3>
+<p>mkdir mycontacts-backend</p>
+<p>cd mycontacts-backend</p>
+<p>install init - npm init</p>
+<p>install express - npm install express</p>
+<p>install nodemon - npm i -D nodemon</p>
+<p>install dotenv - npm i dotenv (create new file .env)</p>
+<p>run dev - npm run dev</p>
+
+<h4>Update the server.js</h4>
+```
+const express = require("express");
+const dotenv = require("dotenv").config();
+
+const app = express();
+
+const port = process.env.PORT || 5000;
+
+app.listen(port, () => {
+    console.log(`server running on port ${port}`);
+});
+```
+
+<h4>Update the .env</h4>
+```
+PORT=5001
+```
