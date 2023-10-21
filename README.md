@@ -107,7 +107,7 @@ PORT=5001
 
 install thunder client to test HTTP request (from VS extension "Thunder Client") 
 
-to check text request <br/>
+to check request in thunder client<br/>
 http://localhost:5001/api/contacts
 
 ```
@@ -132,6 +132,38 @@ app.get("/api/contacts", (req, res) => {
 });
 ```
 
+create new folder "routes" and create new file "contactRoutes.js" under routes folder<br/>
+add GET, POST, PUT, DELETE request in route file 
 
+```
+const express = require("express");
+const router = express.Router();
 
+router.route("/").get((req, res) => {
+  res.status(200).json({message: "Get all contacts"});
+});
 
+router.route("/").post((req, res) => {
+  res.status(200).json({message: "Create Contact"});
+});
+
+router.route("/:id").get((req, res) => {
+  res.status(200).json({message: `Get contact for ${req.params.id}`});
+});
+
+router.route("/:id").put((req, res) => {
+  res.status(200).json({message: `Update contact for ${req.params.id}`});
+});
+
+router.route("/:id").delete((req, res) => {
+  res.status(200).json({message: `Delete contact for ${req.params.id}`});
+});
+
+module.exports = router;
+```
+
+and "/api/contacts" is common to all, and we use middleware as app.use("") for our API URL slash API slash context and then we are passing our contact routes
+
+```
+app.use("/api/contacts", require("./routes/contactRoutes"));
+```
