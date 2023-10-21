@@ -95,7 +95,7 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 app.listen(port, () => {
-    console.log(`server running on port ${port}`);
+  console.log(`server running on port ${port}`);
 });
 ```
 
@@ -104,3 +104,34 @@ app.listen(port, () => {
 ```
 PORT=5001
 ```
+
+install thunder client to test HTTP request (from VS extension "Thunder Client") 
+
+to check text request <br/>
+http://localhost:5001/api/contacts
+
+```
+app.get("/api/contacts", (req, res) => {
+  res.send("Get all contacts");
+});
+```
+
+or to test json format
+
+```
+app.get("/api/contacts", (req, res) => {
+    res.json({message: "Get all contacts"});
+});
+```
+
+and to set status 200
+
+```
+app.get("/api/contacts", (req, res) => {
+    res.status(200).json({message: "Get all contacts"});
+});
+```
+
+
+
+
