@@ -167,3 +167,86 @@ and "/api/contacts" is common to all, and we use middleware as app.use("") for o
 ```
 app.use("/api/contacts", require("./routes/contactRoutes"));
 ```
+
+Create new Folder "controllers" under main folder and new file "contactController.js" under controller folder
+
+```
+//@desc Get all contacts
+//@route GET /api/contacts
+//@access public
+const getContact = (req, res) => {
+    res.status(200).json({message: "Cart all contacts"});
+};
+
+module.exports = {getContact};
+```
+
+```
+cut from contactRoutes.js and paste here and update the contactController.js
+
+(req, res) => {
+    res.status(200).json({message: "Cart all contacts"});
+};
+```
+
+and update the contactController.js
+
+```
+//@desc Get all contacts
+//@route GET /api/contacts
+//@access public
+const getContacts = (req, res) => {
+  res.status(200).json({message: "Cart all contacts"});
+};
+
+//@desc Create New contact
+//@route POST /api/contacts
+//@access public
+const createContact = (req, res) => {
+  res.status(201).json({message: "Create Contact"});
+};
+
+//@desc Get contact
+//@route GET /api/contacts/:id
+//@access public
+const getContact = (req, res) => {
+  res.status(200).json({message: `Get contact for ${req.params.id}`});
+};
+
+//@desc Update contact
+//@route PUT /api/contacts/:id
+//@access public
+const updateContact = (req, res) => {
+  res.status(200).json({message: `Update contact for ${req.params.id}`});
+};
+
+//@desc Delete contact
+//@route DELETE /api/contacts/:id
+//@access public
+const deleteContact = (req, res) => {
+  res.status(200).json({message: `Delete contact for ${req.params.id}`});
+};
+
+
+module.exports = {getContacts, createContact, getContact, updateContact, deleteContact};
+```
+
+and update the contactRoutes.js
+
+```
+const express = require("express");
+const router = express.Router();
+const {getContacts, createContact, getContact, updateContact, deleteContact} = require("../controllers/contactController");
+
+// router.route("/").get(getContacts);
+// router.route("/").post(createContact);
+// router.route("/:id").get(getContact);
+// router.route("/:id").put(updateContact);
+// router.route("/:id").delete(deleteContact);
+
+router.route("/").get(getContacts).post(createContact);
+router.route("/:id").get(getContact).put(updateContact).delete(deleteContact);
+
+module.exports = router;
+```
+
