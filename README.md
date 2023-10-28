@@ -250,3 +250,63 @@ router.route("/:id").get(getContact).put(updateContact).delete(deleteContact);
 module.exports = router;
 ```
 
+If we request json request, getting error <br/>
+so we need to add express middleware like this in server.js 
+
+```
+app.use(express.json());
+```
+
+and later in request (thunder client) send a json body request in below format
+
+```
+{
+  "name": "nandish",
+  "email": "nandish@gmail.com",
+  "phone": "999999999"
+}
+```
+
+and check the error handling 
+
+```
+//@desc Create New contact
+//@route POST /api/contacts
+//@access public
+const createContact = (req, res) => {
+  console.log("The request body is:", req.body);
+  const {name, email, phone} = req.body;
+  if(!name || !email || !phone) {
+    res.status(400);
+    throw new Error("All fields are mandatory");
+  }
+  res.status(201).json({message: "Create Contact"});
+};
+```
+
+if incase we are sending empty object {}, then we are getting html response error <br/>
+so we need to make a middleware to check the json error format 
+
+create new folder "middleware" and new file "errorHandler.js" under middleware folder
+
+```
+const errorHandler = (err, req, res, next) => {
+    const statusCode = res.statusCode ? res.statusCode : 500;
+    res.json({message: err.message, stackTrace: err.stack});
+};
+
+module.exports = errorHandler;
+```
+
+and use in server.js file
+```
+....
+const errorHandler = require("./middleware/errorHandler");
+....
+app.use(errorHandler);
+....
+```
+
+so we are getting json format based error now, but stackTrace should display only in development means
+
+
